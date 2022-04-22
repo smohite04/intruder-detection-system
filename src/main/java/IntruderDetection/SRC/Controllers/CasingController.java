@@ -10,7 +10,7 @@ public class CasingController {
 		this.casingSensor = casingSensor;
 	}
 
-	public void handleCasingOfObject(boolean toEnclose, boolean sensorIn) {
+	public void handleCasingOfObject(boolean toEnclose) {
 		if( toEnclose && casingMode != CasingMode.enlosing && casingMode != CasingMode.enclosed){
 			if(casingMode == CasingMode.opening){
 				ignoreSensorInput++;
@@ -25,7 +25,7 @@ public class CasingController {
 			casingMode = CasingMode.opening;
 			casingSensor.instruct(false);
 		}
-		handleCasingDoneAcknowledgement(sensorIn);
+		handleCasingDoneAcknowledgement(false);
 		return ;
 	}
 
