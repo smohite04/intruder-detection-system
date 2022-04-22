@@ -4,13 +4,26 @@ public class CasingController {
 	private int ignoreSensorInput = 0;
 
 	private DistanceController distanceController;
+	private CasingSensor casingSensor;
+
+	public CasingController( CasingSensor casingSensor){
+		this.casingSensor = casingSensor;
+	}
 
 	public void handleCasingOfObject(boolean toEnclose, boolean sensorIn) {
 		if( toEnclose && casingMode != CasingMode.enlosing && casingMode != CasingMode.enclosed){
-			
+			if(casingMode == CasingMode.opening){
+				ignoreSensorInput++;
+			}
+			casingMode = CasingMode.enclosing;
+			casingSensor.instruct(true);
 		}
 		if( !toEnclose && casingMode != CasingMode.open && casingMode != CasingMode.opening){
-
+			if(casingMode == CasingMode.enclosing){
+				ignoreSensorInput++;
+			}
+			casingMode = CasingMode.opening;
+			casingSensor.instruct(false);
 		}
 		handleCasingDoneAcknowledgement(sensorIn);
 		return ;
