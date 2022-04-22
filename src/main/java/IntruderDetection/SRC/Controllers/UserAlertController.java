@@ -2,12 +2,13 @@ public class UserAlertController implements INotificationHandler {
 
 	private int queueThreshold = 1024000;
 
-	private Queue<byte[][]> cameraQueue;
+	private Deque<byte[][]> cameraQueue;
 
 	private AlertNotification[] alertNotification;
 
-	public boolean updateCameraQueue(byte[][] camera) {
-		return false;
+	public void updateCameraQueue(byte[][] cameraFrame) {
+		cameraQueue.add(cameraFrame);
+		return ;
 	}
 
 

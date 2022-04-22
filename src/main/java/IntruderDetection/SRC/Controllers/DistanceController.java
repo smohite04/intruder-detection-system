@@ -8,9 +8,12 @@ public class DistanceController {
 	private AlarmController alarmController;
 	private CasingController casingController;
 
+	// distance will be -1 if invoked by casing controller
 	public void computeAction(float distance, boolean enclosedIn) {
 		enclosed = enclosedIn;
-		verifyDistanceAndRaiseAlert(distance)
+		if(distance >= 0){
+			verifyDistanceAndRaiseAlert(distance);
+		}
 		return ;
 	}
 
