@@ -1,5 +1,4 @@
-package IntruderDetection;
-import static IntruderDetection.ConstantClass.MAX_ROUND;
+package IntruderDetection.SRC.DataCollectors;
 import static java.lang.System.*;
 
 public class Main {
@@ -16,7 +15,7 @@ public class Main {
         In first round no distance values will be sent.
         Only three values of PIR will be sent i.e. 10, 9, 8
          */
-        out.println("The round value is : " + MAX_ROUND);
+
 
     }
 

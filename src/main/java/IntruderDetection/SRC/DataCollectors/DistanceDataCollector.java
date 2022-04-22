@@ -1,3 +1,5 @@
+package IntruderDetection.SRC.DataCollectors;
+
 public class DistanceDataCollector extends DataCollector {
 
 	private DistanceController distanceController;
