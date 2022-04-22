@@ -9,8 +9,13 @@ public class DistanceController {
 	private boolean enclosed = false;
 
 
-	private AlarmController alarmController;
-	private CasingController casingController;
+	private final AlarmController alarmController;
+	private final CasingController casingController;
+
+	public DistanceController(AlarmController alarmController, CasingController casingController) {
+		this.alarmController = alarmController;
+		this.casingController = casingController;
+	}
 
 	// distance will be -1 if invoked by casing controller
 	public void computeAction(float distance, boolean enclosedIn) {

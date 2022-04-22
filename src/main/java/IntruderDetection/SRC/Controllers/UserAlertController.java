@@ -14,7 +14,7 @@ public class UserAlertController  {
 		return ;
 	}
 
-	public void notify(int raiseNotification) {
+	public void notify(Boolean raiseNotification) {
 		//return null;
 	}
 
