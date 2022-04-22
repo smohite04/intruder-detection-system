@@ -30,7 +30,7 @@ public class CasingController {
             casingMode = CasingMode.opening;
             casingSensor.instruct(false);
         }
-        handleCasingDoneAcknowledgement(false);
+       // handleCasingDoneAcknowledgement(false);
         return;
     }
 
