@@ -5,8 +5,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ReadPIRFile pirFile = new ReadPIRFile("/Users/skhand17/IdeaProjects/Software_Design_564/intruder-detection-system/src/main/java/IntruderDetection/PIRDataValues.txt");
-        ReadDistanceFile distanceFile = new ReadDistanceFile("/Users/skhand17/IdeaProjects/Software_Design_564/intruder-detection-system/src/main/java/IntruderDetection/DistanceValues.txt");
+        ReadPIRFile pirFile = new ReadPIRFile("/Users/skhand17/IdeaProjects/Software_Design_564/intruder-detection-system/src/main/java/IntruderDetection/SRC/DataCollectors/PIRDataValues.txt");
+        ReadDistanceFile distanceFile = new ReadDistanceFile("/Users/skhand17/IdeaProjects/Software_Design_564/intruder-detection-system/src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues.txt");
         pirFile.readAFile();
         distanceFile.readAFile();
 

@@ -1,3 +1,8 @@
+package IntruderDetection.SRC.Controllers;
+
+import IntruderDetection.SRC.CasingMode;
+import IntruderDetection.Sensors.CasingSensor;
+
 public class CasingController {
 
 	private CasingMode casingMode = CasingMode.open;
@@ -11,7 +16,7 @@ public class CasingController {
 	}
 
 	public void handleCasingOfObject(boolean toEnclose) {
-		if( toEnclose && casingMode != CasingMode.enlosing && casingMode != CasingMode.enclosed){
+		if( toEnclose && casingMode != CasingMode.enclosing && casingMode != CasingMode.enclosed){
 			if(casingMode == CasingMode.opening){
 				ignoreSensorInput++;
 			}
@@ -29,7 +34,7 @@ public class CasingController {
 		return ;
 	}
 
-	private void handleCasingDoneAcknowledgement(boolean sensorIn) {
+	public void handleCasingDoneAcknowledgement(boolean sensorIn) {
 		if(sensorIn){
 			if(ignoreSensorInput == 0){
 				if(casingMode == CasingMode.opening){

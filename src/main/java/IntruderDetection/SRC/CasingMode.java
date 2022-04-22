@@ -1,11 +1,13 @@
+package IntruderDetection.SRC;
+
 public enum CasingMode {
 
-	enclosed(0),
+	enclosed,
 
-	open(1),
+	open,
 
-	opening(2),
+	opening,
 
-	enclosing(3);
+	enclosing;
 
 }

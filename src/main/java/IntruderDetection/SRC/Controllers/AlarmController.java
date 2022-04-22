@@ -1,17 +1,22 @@
-public class AlarmController implements INotificationHandler {
+package IntruderDetection.SRC.Controllers;
 
-	private AlarmNotification[] alarmNotification;
+import IntruderDetection.SRC.AlarmNotification;
+
+public class AlarmController {
+
+	private AlarmNotification alarmNotification;
+
+	public AlarmController(AlarmNotification alarmNotification) {
+		this.alarmNotification = alarmNotification;
+	}
 
 	private boolean updateAlarm() {
 		return false;
 	}
 
 
-	/**
-	 * @see INotificationHandler#notify(int)
-	 */
-	public void notify(boolean raiseNotification) {
-		return null;
+	public boolean notify(boolean raiseNotification) {
+		return false;
 	}
 
 }

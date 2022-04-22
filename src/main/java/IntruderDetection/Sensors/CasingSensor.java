@@ -1,3 +1,8 @@
+package IntruderDetection.Sensors;
+
+import IntruderDetection.SRC.Controllers.CasingController;
+
+import java.util.concurrent.TimeUnit;
 
 public class CasingSensor {
     
@@ -10,8 +15,13 @@ public class CasingSensor {
     public synchronized void instruct(boolean instruction) {
         Thread thread = new Thread("casingsensor") {
             public void run(){
-                TimeUnit.SECONDS.sleep(2);
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 casingController.handleCasingDoneAcknowledgement(instruction);
+
             }
         };
         thread.start();

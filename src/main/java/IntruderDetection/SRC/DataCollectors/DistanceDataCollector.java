@@ -1,6 +1,8 @@
 package IntruderDetection.SRC.DataCollectors;
 
-public class DistanceDataCollector extends DataCollector {
+import IntruderDetection.SRC.Controllers.DistanceController;
+
+public class DistanceDataCollector {
 
 	private DistanceController distanceController;
 
@@ -8,7 +10,7 @@ public class DistanceDataCollector extends DataCollector {
 		this.distanceController = distanceController;
 	}
 
-	@Override
+
 	public void insertData(Float data) {
 		notifyDistanceController(data);
 		return ;

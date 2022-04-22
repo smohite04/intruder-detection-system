@@ -1,8 +1,12 @@
+package IntruderDetection.SRC.DataCollectors;
+
+import IntruderDetection.SRC.Controllers.UserAlertController;
+
 public class CameraDataCollector {
 
 	private UserAlertController userAlertController;
 	
-	public CameraDataController(UserAlertController userAlertController) {
+	public CameraDataCollector(UserAlertController userAlertController) {
 		this.userAlertController = userAlertController;
 	}
 
@@ -12,7 +16,7 @@ public class CameraDataCollector {
 	}
 
 	private void provideDataToUserController(Byte[][] imageFrame) {
-		userAlertController.updateCameraQueue(imageFrame);
+		//userAlertController.updateCameraQueue(imageFrame);
 		return;
 	}
 }

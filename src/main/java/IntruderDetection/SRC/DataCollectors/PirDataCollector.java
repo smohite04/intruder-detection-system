@@ -1,6 +1,8 @@
 package IntruderDetection.SRC.DataCollectors;
 
-public class PirDataCollector extends DataCollector_Boolean_ {
+import IntruderDetection.SRC.Controllers.MotionDetector;
+
+public class PirDataCollector {
 
 	private MotionDetector motionDetector;
 
@@ -9,7 +11,7 @@ public class PirDataCollector extends DataCollector_Boolean_ {
 	}
 
 	public void insertData(Boolean data) {
-		notifyDistanceController(data);
+		notifyMotionDetector(data);
 	}
 
 	private void notifyMotionDetector(boolean raiseAlert) {

@@ -1,3 +1,7 @@
+package IntruderDetection.SRC.Controllers;
+
+import IntruderDetection.Constants;
+
 public class DistanceController {
 
 	private float casingThreshold = Constants.CASING_THRESHOLD;

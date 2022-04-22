@@ -1,3 +1,4 @@
+package IntruderDetection.SRC;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 
-public class AlarmNotification extends Notification {
+public class AlarmNotification {
 
 	Clip clip;
 	String statusClip; // current status of the clip
@@ -20,7 +21,7 @@ public class AlarmNotification extends Notification {
 
 	public AlarmNotification(boolean alarm) throws UnsupportedAudioFileException,IOException,LineUnavailableException {
 		this.alarm = alarm;
-		audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+		//audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
 
 		clip = AudioSystem.getClip();
 		clip.open(audioInputStream);
