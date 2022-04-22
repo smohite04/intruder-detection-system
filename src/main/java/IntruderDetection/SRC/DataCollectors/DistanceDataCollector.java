@@ -2,23 +2,29 @@ package IntruderDetection.SRC.DataCollectors;
 
 import IntruderDetection.SRC.Controllers.DistanceController;
 
+import static java.lang.System.out;
+
 public class DistanceDataCollector {
 
-	private DistanceController distanceController;
+    private final DistanceController distanceController;
+    private final String debugTAG;
 
-	public DistanceDataCollector(DistanceController distanceController) {
-		this.distanceController = distanceController;
-	}
+    public DistanceDataCollector(DistanceController distanceController) {
+        debugTAG = this.getClass().getSimpleName();
+        this.distanceController = distanceController;
+    }
 
 
-	public void insertData(Float data) {
-		notifyDistanceController(data);
-		return ;
-	}
+    public void insertData(Float data) {
+        out.println(debugTAG + ": received input distance " + data);
+        notifyDistanceController(data);
+        return;
+    }
 
-	private void notifyDistanceController(float distance) {
-		distanceController.computeAction(distance,false);
-		return ;
-	}
+    private void notifyDistanceController(float distance) {
+        out.println(debugTAG + "Notifying DistanceController distance: " + distance);
+        distanceController.computeAction(distance, false);
+        return;
+    }
 
 }
