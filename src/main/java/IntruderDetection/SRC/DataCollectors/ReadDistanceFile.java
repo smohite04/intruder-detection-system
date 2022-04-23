@@ -42,13 +42,13 @@ public class  ReadDistanceFile implements FileUtil{
             e.printStackTrace();
         }
 
-        String filePathing = "Your Image file path";
+        String alarmClip = "/Users/skhand17/IdeaProjects/Software_Design_564/intruder-detection-system/src/main/java/IntruderDetection/SRC/DataCollectors/alarm_clock.wav";
         for(int i=0; i<data_values.size(); i++) {
             out.println("The Round is : " + i);
             out.println("####################");
             CasingController casingController = new CasingController();
             CasingSensor casingSensor = new CasingSensor(casingController);
-            AlarmNotification alarmNotification = new AlarmNotification(filePathing);
+            AlarmNotification alarmNotification = new AlarmNotification(alarmClip);
             AlarmController alarmController = new AlarmController(alarmNotification);
             DistanceController distanceController = new DistanceController(alarmController, casingController);
             DistanceDataCollector distanceDataCollector = new DistanceDataCollector(distanceController);
