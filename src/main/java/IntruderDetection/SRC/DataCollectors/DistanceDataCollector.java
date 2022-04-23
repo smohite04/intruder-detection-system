@@ -9,6 +9,7 @@ public class DistanceDataCollector {
     private final DistanceController distanceController;
     private final String debugTAG;
 
+
     public DistanceDataCollector(DistanceController distanceController) {
         debugTAG = this.getClass().getSimpleName();
         this.distanceController = distanceController;

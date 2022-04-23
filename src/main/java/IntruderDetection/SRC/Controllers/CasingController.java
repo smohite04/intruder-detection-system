@@ -5,14 +5,15 @@ import IntruderDetection.Sensors.CasingSensor;
 
 public class CasingController {
 
-    private final DistanceController distanceController;
-    private final CasingSensor casingSensor;
+   // private final DistanceController distanceController;
+   // private final CasingSensor casingSensor;
     private CasingMode casingMode = CasingMode.open;
     private int ignoreSensorInput = 0;
 
-    public CasingController(DistanceController distanceController, CasingSensor casingSensor) {
-        this.distanceController = distanceController;
-        this.casingSensor = casingSensor;
+    public CasingController() {
+
+       // this.distanceController = distanceController;
+       // this.casingSensor = casingSensor;
     }
 
     public void handleCasingOfObject(boolean toEnclose) {
@@ -21,14 +22,14 @@ public class CasingController {
                 ignoreSensorInput++;
             }
             casingMode = CasingMode.enclosing;
-            casingSensor.instruct(true);
+            //casingSensor.instruct(true);
         }
         if (!toEnclose && casingMode != CasingMode.open && casingMode != CasingMode.opening) {
             if (casingMode == CasingMode.enclosing) {
                 ignoreSensorInput++;
             }
             casingMode = CasingMode.opening;
-            casingSensor.instruct(false);
+           // casingSensor.instruct(false);
         }
        // handleCasingDoneAcknowledgement(false);
         return;
@@ -52,7 +53,7 @@ public class CasingController {
     }
 
     private void notifyDistanceController(boolean casingAcknowledgement) {
-        distanceController.computeAction(-1, casingAcknowledgement);
+      //  distanceController.computeAction(-1, casingAcknowledgement);
         return;
     }
 

@@ -8,6 +8,7 @@ public class PirDataCollector {
 	private final MotionDetector motionDetector;
 	private final String debugTAG;
 
+
 	public PirDataCollector(MotionDetector motionDetector) {
 		debugTAG = this.getClass().getSimpleName();
 		this.motionDetector = motionDetector;

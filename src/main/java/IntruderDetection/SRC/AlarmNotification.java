@@ -16,8 +16,11 @@ public class AlarmNotification {
 	String statusClip; // current status of the clip
 	private boolean alarm;
 	AudioInputStream audioInputStream;
-	static String filepath;
+	String filepath;
 
+	public AlarmNotification(String filepath) {
+		this.filepath = filepath;
+	}
 
 	public AlarmNotification(boolean alarm) throws UnsupportedAudioFileException,IOException,LineUnavailableException {
 		this.alarm = alarm;

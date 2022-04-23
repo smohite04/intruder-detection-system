@@ -15,7 +15,13 @@ public class UserAlertController  {
 	}
 
 	public void notify(Boolean raiseNotification) {
-		//return null;
+		if(raiseNotification ==  true) {
+			System.out.println("The user has been alerted about the intruder");
+			System.out.println("The image of intruder is captured and sent to the intruder");
+		} else {
+			System.out.println("The intruder is not in the sur.veil·lance");
+			System.out.println("The user is not notified about any alert");
+		}
 	}
 
 }
