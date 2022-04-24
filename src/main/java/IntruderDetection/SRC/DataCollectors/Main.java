@@ -40,14 +40,15 @@ public class Main {
         Iterator distanceIterator = distanceData.iterator();
 
         int round = 0;
-        while(distanceIterator.hasNext()){
-            out.println(String.format("-----------Round %d----------------------",round));
-            Float distance = Float.valueOf((String) distanceIterator.next());
-            distanceDataCollector.insertData(distance);
-            if(distance > 10) {
-                pirDataCollector.insertData(false);
-            }else{
-                pirDataCollector.insertData(true);
+        while (distanceIterator.hasNext() || pirIterator.hasNext()) {
+            out.println(String.format("-----------Round %d----------------------", round));
+            if (distanceIterator.hasNext()) {
+                Float distance = Float.valueOf((String) distanceIterator.next());
+                distanceDataCollector.insertData(distance);
+            }
+            if (pirIterator.hasNext()) {
+                Float pirDistance = Float.valueOf((String) pirIterator.next());
+                pirDataCollector.insertData(pirDistance <= 10);
             }
             out.println("----------------------------------------");
             round++;
