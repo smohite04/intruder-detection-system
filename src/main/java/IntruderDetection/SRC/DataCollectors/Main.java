@@ -1,6 +1,6 @@
 package IntruderDetection.SRC.DataCollectors;
 
-import IntruderDetection.SRC.AlarmNotification;
+import IntruderDetection.SRC.NotificationHandlers.AlarmNotification;
 import IntruderDetection.SRC.Controllers.*;
 import IntruderDetection.Sensors.CasingSensor;
 
@@ -29,7 +29,7 @@ public class Main {
 
         String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF001.wav";
 
-        AlarmNotification alarmNotification = new AlarmNotification(audioPath);
+        AlarmNotification alarmNotification = new AlarmNotification((audioPath);
         AlarmController alarmController = new AlarmController(alarmNotification);
 
         CasingSensor casingSensor = new CasingSensor();
@@ -57,7 +57,8 @@ public class Main {
                 distanceDataCollector.insertData(distance <= 7? distance : null);
 
                 Image image = images.remove(0);
-                cameraDataCollector.insertData(distance <= 10? image : null, round);
+                var imageDetails = new ImageDetails(image, round);
+                cameraDataCollector.insertData(distance <= 10? imageDetails : null);
                 pirDataCollector.insertData(distance <= 10);
             }
             out.println("----------------------------------------");

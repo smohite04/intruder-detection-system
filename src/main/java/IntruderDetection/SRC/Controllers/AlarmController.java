@@ -1,17 +1,22 @@
 package IntruderDetection.SRC.Controllers;
 
-import IntruderDetection.SRC.AlarmNotification;
+import IntruderDetection.SRC.NotificationHandlers.AlarmNotification;
+import IntruderDetection.SRC.Contracts.INotificationHandler;
+import IntruderDetection.SRC.NotificationHandlers.AlarmNotificationHandler;
 
 public class AlarmController {
 
+	private static INotificationHandler alarmNotificationHandler = new AlarmNotificationHandler();
 	private AlarmNotification alarmNotification;
 
 	public AlarmController(AlarmNotification alarmNotification) {
 		this.alarmNotification = alarmNotification;
 	}
 
-	private boolean updateAlarm() {
-		return false;
+	public boolean raiseAlarm(boolean alarm) {
+		//alarmNotification.setAlarm(alarm);
+		alarmNotificationHandler.notify(alarmNotification);
+		return alarm;
 	}
 
 

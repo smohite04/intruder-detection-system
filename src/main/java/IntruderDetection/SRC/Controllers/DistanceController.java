@@ -23,14 +23,10 @@ public class DistanceController implements CasingSensorObserver {
 
     // distance will be -1 if invoked by casing controller
     public void computeAction(Float distance, boolean enclosedIn) {
-        if (distance !=null){
-            if(distance > 0) {
-                verifyDistanceAndRaiseAlert(distance);
-            }else{
-                enclosed = enclosedIn;
-            }
-        } else{
-            verifyDistanceAndRaiseAlert(null);
+        if (distance !=null && distance >=0) {
+            verifyDistanceAndRaiseAlert(distance);
+        }else{
+            enclosed = enclosedIn;
         }
         return;
     }
@@ -45,19 +41,15 @@ public class DistanceController implements CasingSensorObserver {
             } else if (!enclosed && distance <= alarmThreshold) {
                 out.println(debugTag + ": turning on alarm as distance < alarm threshold");
                 alarmController.notify(true);
-            } else if (distance > alarmThreshold) {
+            } else if (enclosed && distance > alarmThreshold) {
+                out.println(debugTag + ": turning off alarm and opening casing as distance > alarm threshold");
                 alarmController.notify(false);
-                if(enclosed) {
-                    out.println(debugTag + ": turning off alarm and opening casing as distance > alarm threshold");
-                    casingController.handleCasingOfObject(false);
-                }
+                casingController.handleCasingOfObject(false);
+            } else {
+                alarmController.notify(false);
             }
         } else {
             alarmController.notify(false);
-            if(enclosed) {
-                out.println(debugTag + ": turning off alarm and opening casing as distance > alarm threshold");
-                casingController.handleCasingOfObject(false);
-            }
         }
         return;
     }

@@ -1,6 +1,5 @@
 package IntruderDetection.SRC.NotificationHandlers;
 
-import IntruderDetection.SRC.Contracts.AlertNotification;
 import IntruderDetection.SRC.Contracts.INotificationHandler;
 import IntruderDetection.SRC.Contracts.Notification;
 
@@ -16,9 +15,9 @@ public class AlertNotificationHandler implements INotificationHandler {
         if(alertNotification.isAlertRaised()) {
             System.out.println("The user has been alerted about the intruder");
             System.out.println("The image of intruder is captured and sent to the intruder");
-            File outputFile = new File("imageNotifications/" + ((AlertNotification) notification).getRound() + ".jpg");
+            File outputFile = new File("imageNotifications/" + alertNotification.getCameraStream().getRound() + ".jpg");
             try {
-                ImageIO.write((BufferedImage)((AlertNotification) notification).getCameraStream(), "jpg", outputFile);
+                ImageIO.write((BufferedImage) alertNotification.getCameraStream().getImage(), "jpg", outputFile);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

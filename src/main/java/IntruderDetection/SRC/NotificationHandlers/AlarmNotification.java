@@ -1,4 +1,6 @@
-package IntruderDetection.SRC;
+package IntruderDetection.SRC.NotificationHandlers;
+
+import IntruderDetection.SRC.Contracts.Notification;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 
-public class AlarmNotification {
+public class AlarmNotification extends Notification {
 
 	Clip clip;
 	String statusClip; // current status of the clip
