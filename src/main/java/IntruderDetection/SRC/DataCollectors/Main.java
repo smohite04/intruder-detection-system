@@ -20,9 +20,11 @@ import static java.lang.System.out;
 public class Main {
 
     public static void main(String[] args) {
+
         deleteFolder(new File("imageNotifications"));
-        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues.txt");
+        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues1.txt");
         List<BufferedImage> images = getImagesFromFile();
+
 
         String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF002.wav";
 
