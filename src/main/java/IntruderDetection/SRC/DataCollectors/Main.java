@@ -4,18 +4,25 @@ import IntruderDetection.SRC.AlarmNotification;
 import IntruderDetection.SRC.Controllers.*;
 import IntruderDetection.Sensors.CasingSensor;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import static java.lang.System.out;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        LinkedList<String> pirData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/PIRDataValues.txt");
+        deleteFolder(new File("imageNotifications"));
         LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues.txt");
-
+        List<BufferedImage> images = getImagesFromFile();
 
         String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF002.wav";
 
@@ -33,28 +40,79 @@ public class Main {
 
         UserAlertController userAlertController = new UserAlertController();
         MotionDetector motionDetector = new MotionDetector(userAlertController);
+        CameraDataCollector cameraDataCollector = new CameraDataCollector(userAlertController);
         PirDataCollector pirDataCollector = new PirDataCollector(motionDetector);
 
 
-        Iterator pirIterator = pirData.iterator();
         Iterator distanceIterator = distanceData.iterator();
 
         int round = 0;
-        while (distanceIterator.hasNext() || pirIterator.hasNext()) {
+        while (distanceIterator.hasNext()) {
             out.println(String.format("-----------Round %d----------------------", round));
             if (distanceIterator.hasNext()) {
                 Float distance = Float.valueOf((String) distanceIterator.next());
-                distanceDataCollector.insertData(distance);
-            }
-            if (pirIterator.hasNext()) {
-                Float pirDistance = Float.valueOf((String) pirIterator.next());
-                pirDataCollector.insertData(pirDistance <= 10);
+                distanceDataCollector.insertData(distance <= 7? distance: null);
+
+                Image image = images.remove(0);
+                cameraDataCollector.insertData(distance <= 10? image : null, round);
+                pirDataCollector.insertData(distance <= 10);
             }
             out.println("----------------------------------------");
             round++;
         }
-
-
     }
 
+    public static List<BufferedImage> getImagesFromFile() {
+        final File dir = new File("src/main/java/IntruderDetection/SRC/DataCollectors/images");
+
+        // array of supported extensions (use a List if you prefer)
+        final String[] EXTENSIONS = new String[]{
+                "jpg" // and other formats you need
+        };
+        // filter to identify images based on their extensions
+        final FilenameFilter IMAGE_FILTER = new FilenameFilter() {
+
+            @Override
+            public boolean accept(final File dir, final String name) {
+                for (final String ext : EXTENSIONS) {
+                    if (name.endsWith("." + ext)) {
+                        return (true);
+                    }
+                }
+                return (false);
+            }
+        };
+        List<BufferedImage> bufferedImages = new ArrayList<BufferedImage>();
+        if (dir.isDirectory()) { // make sure it's a directory
+            for (final File f : dir.listFiles(IMAGE_FILTER)) {
+                BufferedImage img = null;
+
+                try {
+                    img = ImageIO.read(f);
+
+                    // you probably want something more involved here
+                    // to display in your UI
+                    System.out.println("image: " + f.getName());
+                    bufferedImages.add(img);
+
+                } catch (final IOException e) {
+                    // handle errors here
+                }
+            }
+        }
+        return bufferedImages;
+    }
+
+    public static void deleteFolder(File folder) {
+        File[] files = folder.listFiles();
+        if(files!=null) { //some JVMs return null for empty dirs
+            for(File f: files) {
+                if(f.isDirectory()) {
+                    deleteFolder(f);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+    }
 }
