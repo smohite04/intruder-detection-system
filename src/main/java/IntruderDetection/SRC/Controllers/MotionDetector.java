@@ -9,7 +9,8 @@ public class MotionDetector {
 	}
 
 	public void computeAction(boolean pirSensorIn) {
-		userAlertController.notify(pirSensorIn);
+		userAlertController.raiseAlert(pirSensorIn);
+		//userAlertController.notify(pirSensorIn);
 	}
 
 }
