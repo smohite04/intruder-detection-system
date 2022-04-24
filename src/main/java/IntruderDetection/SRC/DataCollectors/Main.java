@@ -17,9 +17,9 @@ public class Main {
         LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues.txt");
 
 
-        String filePathing = "Your Image file path";
+        String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF002.wav";
 
-        AlarmNotification alarmNotification = new AlarmNotification(filePathing);
+        AlarmNotification alarmNotification = new AlarmNotification(audioPath);
         AlarmController alarmController = new AlarmController(alarmNotification);
 
         CasingSensor casingSensor = new CasingSensor();

@@ -22,28 +22,47 @@ public class AlarmNotification {
 		this.filepath = filepath;
 	}
 
-	public AlarmNotification(boolean alarm) throws UnsupportedAudioFileException,IOException,LineUnavailableException {
-		this.alarm = alarm;
-		//audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+	public void startAlarmProcess(boolean alarm) {
 
-		clip = AudioSystem.getClip();
-		clip.open(audioInputStream);
+		try {
+			this.alarm = alarm;
+			System.out.println("Deciding whether alarm should be triggered or not");
+			audioInputStream = AudioSystem.getAudioInputStream(new File(this.filepath));
+			clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
 
-		clip.loop(Clip.LOOP_CONTINUOUSLY);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			if (alarm == true) {
+				play();
+			} else {
+				pause();
+			}
+		} catch (UnsupportedAudioFileException e1) {
+			System.out.println("UnSupported Audio File Exception has occured");
+			e1.printStackTrace();
+		} catch (IOException e2) {
+			System.out.println("IO exception has occured");
+			e2.printStackTrace();
+		} catch (LineUnavailableException e3) {
+			System.out.println("LineUnavailable Exception has occured");
+			e3.printStackTrace();
+		}
+
 	}
-
 
 	public void play() {
 		clip.start();
 		statusClip = "play";
+		System.out.println("The Alarm is triggered");
 	}
 
 	public void pause() {
 		if(statusClip.equals("paused")) {
-			System.out.println("The audio is already paused");
+			System.out.println("The alarm is already paused");
 		}
 		clip.stop();
 		statusClip="paused";
+		System.out.println("The alarm is turned off as intruder is moving away from proximity area");
 	}
 
 	public boolean isAlarm() {
