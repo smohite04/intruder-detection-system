@@ -37,6 +37,6 @@ hs_err_pid*
 atlassian-ide-plugin.xml
 
 target/
-
+imageNotifications/
 bin/
 .settings/

@@ -1,6 +1,9 @@
 package IntruderDetection.SRC.DataCollectors;
 
 import IntruderDetection.SRC.Controllers.UserAlertController;
+
+import java.awt.*;
+
 import static java.lang.System.out;
 
 public class CameraDataCollector {
@@ -13,14 +16,16 @@ public class CameraDataCollector {
 		debugTAG = this.getClass().getSimpleName();
     }
 
-    public void insertData(Byte[][] data) {
+    public void insertData(Image data, int round) {
 		out.println(debugTAG + " received image input");
-        provideDataToUserController(data);
+        if (data != null) {
+            provideDataToUserController(data, round);
+        }
         return;
     }
 
-    private void provideDataToUserController(Byte[][] imageFrame) {
-        //userAlertController.updateCameraQueue(imageFrame);
+    private void provideDataToUserController(Image imageFrame, int round) {
+        userAlertController.updateCameraQueue(imageFrame, round);
         return;
     }
 }
