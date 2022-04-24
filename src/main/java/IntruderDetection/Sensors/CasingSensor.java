@@ -1,29 +1,44 @@
 package IntruderDetection.Sensors;
 
-import IntruderDetection.SRC.Controllers.CasingController;
-
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class CasingSensor {
-    
-    private CasingController casingController;
+import static java.lang.System.out;
 
-    public CasingSensor(CasingController cosingController){
-        this.casingController = casingController;
+public class CasingSensor {
+    private final String debugTag;
+    List<CasingSensorObserver> casingSensorObservers;
+
+    public CasingSensor() {
+        debugTag = this.getClass().getSimpleName();
+        casingSensorObservers = new LinkedList<>();
+    }
+
+    public void registerListener(CasingSensorObserver casingSensorObserver) {
+        casingSensorObservers.add(casingSensorObserver);
     }
 
     public synchronized void instruct(boolean instruction) {
+        out.println(debugTag + " Received instruction to " + (instruction ? "open " : "close ") + " casing");
         Thread thread = new Thread("casingsensor") {
-            public void run(){
+            public void run() {
                 try {
+                    out.println(debugTag + " casing starting to " + (instruction ? "open " : "close "));
                     TimeUnit.SECONDS.sleep(2);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                casingController.handleCasingDoneAcknowledgement(instruction);
-
+                out.println(debugTag + " casing instruction to  " + (instruction ? "open " : "close ") + " complete");
+                notifyObservers(instruction);
             }
         };
         thread.start();
+    }
+
+    private void notifyObservers(Boolean enclosed) {
+        for (CasingSensorObserver casingSensorObserver : casingSensorObservers) {
+            casingSensorObserver.notify(enclosed);
+        }
     }
 }

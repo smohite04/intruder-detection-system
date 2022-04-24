@@ -2,59 +2,84 @@ package IntruderDetection.SRC.Controllers;
 
 import IntruderDetection.SRC.CasingMode;
 import IntruderDetection.Sensors.CasingSensor;
+import IntruderDetection.Sensors.CasingSensorObserver;
 
-public class CasingController {
+import java.util.LinkedList;
+import java.util.List;
 
-   // private final DistanceController distanceController;
-   // private final CasingSensor casingSensor;
+import static java.lang.System.out;
+
+public class CasingController implements CasingSensorObserver {
+
+    private final CasingSensor casingSensor;
+    private final String debugTag;
+    private final List<CasingSensorObserver> casingSensorObservers;
     private CasingMode casingMode = CasingMode.open;
     private int ignoreSensorInput = 0;
 
-    public CasingController() {
+    public CasingController(CasingSensor casingSensor) {
+        this.debugTag = this.getClass().getSimpleName();
+        this.casingSensorObservers = new LinkedList<>();
+        this.casingSensor = casingSensor;
+    }
 
-       // this.distanceController = distanceController;
-       // this.casingSensor = casingSensor;
+    public void registerListener(CasingSensorObserver casingSensorObserver) {
+        this.casingSensorObservers.add(casingSensorObserver);
+    }
+
+    private void notifyObservers(Boolean enclosed) {
+        for (CasingSensorObserver casingSensorObserver : casingSensorObservers) {
+            casingSensorObserver.notify(enclosed);
+        }
     }
 
     public void handleCasingOfObject(boolean toEnclose) {
+        out.println(debugTag + ": received input toEnclose " + toEnclose);
+        out.println(debugTag + ": current state " + this.casingMode);
         if (toEnclose && casingMode != CasingMode.enclosing && casingMode != CasingMode.enclosed) {
             if (casingMode == CasingMode.opening) {
                 ignoreSensorInput++;
             }
             casingMode = CasingMode.enclosing;
-            //casingSensor.instruct(true);
+            out.println(debugTag + " instructing casing sensor to open");
+            casingSensor.instruct(true);
         }
         if (!toEnclose && casingMode != CasingMode.open && casingMode != CasingMode.opening) {
             if (casingMode == CasingMode.enclosing) {
                 ignoreSensorInput++;
             }
             casingMode = CasingMode.opening;
-           // casingSensor.instruct(false);
+            out.println(debugTag + " instructing casing sensor to close");
+            casingSensor.instruct(false);
         }
-       // handleCasingDoneAcknowledgement(false);
+        // handleCasingDoneAcknowledgement(false);
         return;
     }
 
     public void handleCasingDoneAcknowledgement(boolean sensorIn) {
         if (sensorIn) {
+            out.println(debugTag + " received casing sensor ack " + sensorIn);
             if (ignoreSensorInput == 0) {
+
                 if (casingMode == CasingMode.opening) {
                     casingMode = CasingMode.open;
-                    notifyDistanceController(false);
+                    out.println(debugTag + " notifying distance controller enclosed = " + sensorIn);
+                    notifyObservers(false);
                 } else if (casingMode == CasingMode.enclosing) {
+                    out.println(debugTag + " notifying distance controller enclosed = " + sensorIn);
                     casingMode = CasingMode.enclosed;
-                    notifyDistanceController(true);
+                    notifyObservers(true);
                 }
             } else {
+                out.println(debugTag + " ignoring casing sensor ack " + sensorIn);
                 ignoreSensorInput--;
             }
         }
         return;
     }
 
-    private void notifyDistanceController(boolean casingAcknowledgement) {
-      //  distanceController.computeAction(-1, casingAcknowledgement);
-        return;
+    @Override
+    public void notify(Boolean enclosed) {
+        handleCasingDoneAcknowledgement(enclosed);
     }
-
 }
