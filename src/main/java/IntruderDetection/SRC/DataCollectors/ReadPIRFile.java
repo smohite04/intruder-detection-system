@@ -1,5 +1,6 @@
 package IntruderDetection.SRC.DataCollectors;
 
+import IntruderDetection.SRC.Contracts.FileUtil;
 import IntruderDetection.SRC.Controllers.MotionDetector;
 import IntruderDetection.SRC.Controllers.UserAlertController;
 
@@ -8,11 +9,10 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import static IntruderDetection.Constants.MAX_ROUND;
 import static java.lang.System.out;
 
 
-public class ReadPIRFile implements FileUtil{
+public class ReadPIRFile implements FileUtil {
 
     String pirFilepath;
     LinkedList<String> pir_values = new LinkedList<>();

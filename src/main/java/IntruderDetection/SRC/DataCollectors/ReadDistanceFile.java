@@ -1,6 +1,7 @@
 package IntruderDetection.SRC.DataCollectors;
 
 import IntruderDetection.SRC.AlarmNotification;
+import IntruderDetection.SRC.Contracts.FileUtil;
 import IntruderDetection.SRC.Controllers.AlarmController;
 import IntruderDetection.SRC.Controllers.CasingController;
 import IntruderDetection.SRC.Controllers.DistanceController;
