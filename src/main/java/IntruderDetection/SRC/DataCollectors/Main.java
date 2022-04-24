@@ -22,7 +22,7 @@ public class Main {
     public static void main(String[] args) {
 
         deleteFolder(new File("imageNotifications"));
-        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues1.txt");
+        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues2.txt");
         List<BufferedImage> images = getImagesFromFile();
 
 
@@ -61,6 +61,11 @@ public class Main {
             }
             out.println("----------------------------------------");
             round++;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

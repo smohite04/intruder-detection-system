@@ -18,11 +18,11 @@ public class DistanceDataCollector {
 
     public void insertData(Float data) {
         out.println(debugTAG + ": received input distance " + data);
-        if (data != null) notifyDistanceController(data);
+        notifyDistanceController(data);
         return;
     }
 
-    private void notifyDistanceController(float distance) {
+    private void notifyDistanceController(Float distance) {
         out.println(debugTAG + "Notifying DistanceController distance: " + distance);
         distanceController.computeAction(distance, false);
         return;

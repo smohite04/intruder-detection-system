@@ -35,13 +35,13 @@ public class CasingController implements CasingSensorObserver {
 
     public void handleCasingOfObject(boolean toEnclose) {
         out.println(debugTag + ": received input toEnclose " + toEnclose);
-        out.println(debugTag + ": current state " + this.casingMode);
+
         if (toEnclose && casingMode != CasingMode.enclosing && casingMode != CasingMode.enclosed) {
             if (casingMode == CasingMode.opening) {
                 ignoreSensorInput++;
             }
             casingMode = CasingMode.enclosing;
-            out.println(debugTag + " instructing casing sensor to open");
+            out.println(debugTag + " instructing casing sensor to close");
             casingSensor.instruct(true);
         }
         if (!toEnclose && casingMode != CasingMode.open && casingMode != CasingMode.opening) {
@@ -49,7 +49,7 @@ public class CasingController implements CasingSensorObserver {
                 ignoreSensorInput++;
             }
             casingMode = CasingMode.opening;
-            out.println(debugTag + " instructing casing sensor to close");
+            out.println(debugTag + " instructing casing sensor to open");
             casingSensor.instruct(false);
         }
         // handleCasingDoneAcknowledgement(false);
@@ -81,5 +81,13 @@ public class CasingController implements CasingSensorObserver {
     @Override
     public void notify(Boolean enclosed) {
         handleCasingDoneAcknowledgement(enclosed);
+    }
+
+    public CasingMode getCasingMode() {
+        return casingMode;
+    }
+
+    public void setCasingMode(CasingMode casingMode) {
+        this.casingMode = casingMode;
     }
 }

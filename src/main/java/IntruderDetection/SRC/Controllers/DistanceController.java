@@ -22,8 +22,8 @@ public class DistanceController implements CasingSensorObserver {
     }
 
     // distance will be -1 if invoked by casing controller
-    public void computeAction(float distance, boolean enclosedIn) {
-        if (distance >= 0) {
+    public void computeAction(Float distance, boolean enclosedIn) {
+        if (distance !=null && distance >=0) {
             verifyDistanceAndRaiseAlert(distance);
         }else{
             enclosed = enclosedIn;
@@ -31,24 +31,29 @@ public class DistanceController implements CasingSensorObserver {
         return;
     }
 
-    private void verifyDistanceAndRaiseAlert(float distance) {
-        if (!enclosed && distance <= casingThreshold) {
-            out.println(debugTag + ": turning on alarm and casing as distance < casing threshold");
-            casingController.handleCasingOfObject(true);
-            alarmController.notify(true);
-        } else if (!enclosed && distance <= alarmThreshold) {
-            out.println(debugTag + ": turning on alarm as distance < alarm threshold");
-            alarmController.notify(true);
-        } else if (enclosed && distance > alarmThreshold) {
-            out.println(debugTag + ": turning off alarm and opening casing as distance > alarm threshold");
+    private void verifyDistanceAndRaiseAlert(Float distance) {
+        out.println("Casing Controller" + ": current state " + this.casingController.getCasingMode());
+        if(distance != null){
+            if (!enclosed && distance <= casingThreshold) {
+                out.println(debugTag + ": turning on alarm and casing as distance < casing threshold");
+                casingController.handleCasingOfObject(true);
+                alarmController.notify(true);
+            } else if (!enclosed && distance <= alarmThreshold) {
+                out.println(debugTag + ": turning on alarm as distance < alarm threshold");
+                alarmController.notify(true);
+            } else if (enclosed && distance > alarmThreshold) {
+                out.println(debugTag + ": turning off alarm and opening casing as distance > alarm threshold");
+                alarmController.notify(false);
+                casingController.handleCasingOfObject(false);
+            }
+        } else {
             alarmController.notify(false);
-            casingController.handleCasingOfObject(false);
         }
         return;
     }
 
     @Override
     public void notify(Boolean enclosed) {
-        computeAction(-1, enclosed);
+        computeAction((float) -1, enclosed);
     }
 }
