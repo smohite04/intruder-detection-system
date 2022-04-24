@@ -16,10 +16,10 @@ public class DistanceDataCollector {
     }
 
 
-    public void insertData(Float data) {
+    public boolean insertData(Float data) {
         out.println(debugTAG + ": received input distance " + data);
         notifyDistanceController(data);
-        return;
+        return true;
     }
 
     private void notifyDistanceController(Float distance) {
