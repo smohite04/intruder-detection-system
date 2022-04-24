@@ -51,6 +51,9 @@ public class AlarmNotification {
 	}
 
 	public void play() {
+		if(statusClip.equals("play")){
+			System.out.println("The alarm is already on");
+		}
 		clip.start();
 		statusClip = "play";
 		System.out.println("The Alarm is triggered");
