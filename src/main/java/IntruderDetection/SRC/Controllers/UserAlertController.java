@@ -34,7 +34,7 @@ When size breaches the threshold, it should remove stale images (remove from fro
 			}
 		}
 	}
-
+// poll last we get the latest camera stream added to the queue to send to user with alert.
 	public boolean raiseAlert(boolean raiseAlert){
 		if(raiseAlert == true){
 			var camera = (cameraQueue.isEmpty() == false)?cameraQueue.pollLast(): null;
