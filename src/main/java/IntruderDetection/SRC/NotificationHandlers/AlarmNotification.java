@@ -80,7 +80,7 @@ public class AlarmNotification extends Notification {
 	}
 
 	public boolean isAlarm() {
-		return false;
+		return alarm;
 	}
 
 	public void setAlarm(boolean alarm) {

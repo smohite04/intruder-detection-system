@@ -10,7 +10,8 @@ public class AlarmNotificationHandler implements INotificationHandler {
         var alarmNotification = (AlarmNotification) notification;
         System.out.println("The value of raiseNotification is : " +true);
         //TODO: need to remove the alarm argument
-        alarmNotification.startAlarmProcess(true);
+        var alarm = alarmNotification.isAlarm();
+        alarmNotification.startAlarmProcess(alarm);
         return;
     }
 }

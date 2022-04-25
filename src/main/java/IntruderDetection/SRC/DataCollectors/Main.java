@@ -23,7 +23,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
 
         deleteFolder(new File("imageNotifications"));
-        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues1.txt");
+        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues2.txt");
         List<BufferedImage> images = getImagesFromFile();
 
 
