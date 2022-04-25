@@ -23,11 +23,11 @@ public class Main {
     public static void main(String[] args) throws Exception{
 
         deleteFolder(new File("imageNotifications"));
-        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues2.txt");
+        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/Files/DistanceValues2.txt");
         List<BufferedImage> images = getImagesFromFile();
 
 
-        String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF001.wav";
+        String audioPath = "src/main/java/IntruderDetection/SRC/Files/TF001.wav";
 
         AlarmNotification alarmNotification = AlarmNotification.getOrCreateInstance(audioPath);
         AlarmController alarmController = new AlarmController(alarmNotification);
@@ -73,7 +73,7 @@ public class Main {
     }
 
     public static List<BufferedImage> getImagesFromFile() {
-        final File dir = new File("src/main/java/IntruderDetection/SRC/DataCollectors/images");
+        final File dir = new File("src/main/java/IntruderDetection/SRC/Files/images");
 
         // array of supported extensions (use a List if you prefer)
         final String[] EXTENSIONS = new String[]{
