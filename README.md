@@ -18,3 +18,6 @@ Below is the visual representation of our three level security.You can observe t
 With the help of formal modelling methods, you can observe the high level overview of complete synchronous reactive component for this system.
 
 ![SRC-high-level](/SRC-high-level.png)
+
+### Extended state machine to understand how casing works
+![esm-casing](/esm-casing-controller.png)
