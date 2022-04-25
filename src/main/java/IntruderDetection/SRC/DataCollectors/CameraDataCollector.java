@@ -6,7 +6,7 @@ import java.awt.*;
 
 import static java.lang.System.out;
 
-public class CameraDataCollector {
+public class CameraDataCollector extends DataCollector<ImageDetails>{
 
     private final UserAlertController userAlertController;
 	private final String debugTAG;
@@ -16,16 +16,16 @@ public class CameraDataCollector {
 		debugTAG = this.getClass().getSimpleName();
     }
 
-    public void insertData(Image data, int round) {
+    public boolean insertData(ImageDetails imageDetails) {
 		out.println(debugTAG + " received image input");
-        if (data != null) {
-            provideDataToUserController(data, round);
+        if (imageDetails != null && imageDetails.getImage() != null) {
+            provideDataToUserController(imageDetails);
         }
-        return;
+        return true;
     }
 
-    private void provideDataToUserController(Image imageFrame, int round) {
-        userAlertController.updateCameraQueue(imageFrame, round);
+    private void provideDataToUserController(ImageDetails imageDetails) {
+        userAlertController.updateCameraQueue(imageDetails);
         return;
     }
 }

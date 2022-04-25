@@ -1,4 +1,6 @@
-package IntruderDetection.SRC;
+package IntruderDetection.SRC.NotificationHandlers;
+
+import IntruderDetection.SRC.Contracts.Notification;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 
-public class AlarmNotification {
+public class AlarmNotification extends Notification {
 
 	Clip clip;
 	String statusClip; // current status of the clip
@@ -18,7 +20,7 @@ public class AlarmNotification {
 	AudioInputStream audioInputStream;
 	String filepath;
 
-	public AlarmNotification(String filepath) {
+	private AlarmNotification(String filepath) {
 		this.filepath = filepath;
 		this.statusClip = "paused";
 
@@ -38,7 +40,14 @@ public class AlarmNotification {
 			e3.printStackTrace();
 		}
 	}
-
+	private static AlarmNotification instance = null;
+	public static AlarmNotification getOrCreateInstance(String filepath){
+		if(instance == null){
+			var alarmNotification = new AlarmNotification(filepath);
+			instance = alarmNotification;
+		}
+		return instance;
+	}
 	public void startAlarmProcess(boolean alarm) {
 		this.alarm = alarm;
 		if (alarm) {
@@ -71,7 +80,10 @@ public class AlarmNotification {
 	}
 
 	public boolean isAlarm() {
-		return false;
+		return alarm;
 	}
 
+	public void setAlarm(boolean alarm) {
+		this.alarm = alarm;
+	}
 }

@@ -1,6 +1,6 @@
 package IntruderDetection.SRC.DataCollectors;
 
-import IntruderDetection.SRC.AlarmNotification;
+import IntruderDetection.SRC.NotificationHandlers.AlarmNotification;
 import IntruderDetection.SRC.Controllers.*;
 import IntruderDetection.Sensors.CasingSensor;
 
@@ -23,13 +23,13 @@ public class Main {
     public static void main(String[] args) throws Exception{
 
         deleteFolder(new File("imageNotifications"));
-        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues1.txt");
+        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues2.txt");
         List<BufferedImage> images = getImagesFromFile();
 
 
         String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF001.wav";
 
-        AlarmNotification alarmNotification = new AlarmNotification(audioPath);
+        AlarmNotification alarmNotification = AlarmNotification.getOrCreateInstance(audioPath);
         AlarmController alarmController = new AlarmController(alarmNotification);
 
         CasingSensor casingSensor = new CasingSensor();
@@ -45,7 +45,7 @@ public class Main {
         MotionDetector motionDetector = new MotionDetector(userAlertController);
         CameraDataCollector cameraDataCollector = new CameraDataCollector(userAlertController);
         PirDataCollector pirDataCollector = new PirDataCollector(motionDetector);
-
+        SurveillanceDataCollector surveillanceDataCollector = new SurveillanceDataCollector(cameraDataCollector, pirDataCollector);
 
         Iterator distanceIterator = distanceData.iterator();
 
@@ -57,8 +57,9 @@ public class Main {
                 distanceDataCollector.insertData(distance <= 7? distance : null);
 
                 Image image = images.remove(0);
-                cameraDataCollector.insertData(distance <= 10? image : null, round);
-                pirDataCollector.insertData(distance <= 10);
+                var imageDetails = new ImageDetails(image, round);
+                surveillanceDataCollector.getCameraDataCollector().insertData(distance <= 10? imageDetails : null);
+                surveillanceDataCollector.getPirDataCollector().insertData(distance <= 10);
             }
             out.println("----------------------------------------");
             round++;

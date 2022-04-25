@@ -4,7 +4,7 @@ import IntruderDetection.SRC.Controllers.DistanceController;
 
 import static java.lang.System.out;
 
-public class DistanceDataCollector {
+public class DistanceDataCollector extends DataCollector<Float>{
 
     private final DistanceController distanceController;
     private final String debugTAG;
@@ -16,10 +16,10 @@ public class DistanceDataCollector {
     }
 
 
-    public void insertData(Float data) {
+    public boolean insertData(Float data) {
         out.println(debugTAG + ": received input distance " + data);
         notifyDistanceController(data);
-        return;
+        return true;
     }
 
     private void notifyDistanceController(Float distance) {

@@ -3,7 +3,7 @@ package IntruderDetection.SRC.DataCollectors;
 import IntruderDetection.SRC.Controllers.MotionDetector;
 import static java.lang.System.out;
 
-public class PirDataCollector {
+public class PirDataCollector extends DataCollector<Boolean> {
 
 	private final MotionDetector motionDetector;
 	private final String debugTAG;
@@ -14,9 +14,10 @@ public class PirDataCollector {
 		this.motionDetector = motionDetector;
 	}
 
-	public void insertData(Boolean data) {
+	public boolean insertData(Boolean data) {
 		out.println(debugTAG + " received input " + data.toString());
 		notifyMotionDetector(data);
+		return true;
 	}
 
 	private void notifyMotionDetector(Boolean raiseAlert) {
