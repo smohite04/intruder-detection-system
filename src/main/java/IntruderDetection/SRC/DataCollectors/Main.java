@@ -45,7 +45,7 @@ public class Main {
         MotionDetector motionDetector = new MotionDetector(userAlertController);
         CameraDataCollector cameraDataCollector = new CameraDataCollector(userAlertController);
         PirDataCollector pirDataCollector = new PirDataCollector(motionDetector);
-
+        SurveillanceDataCollector surveillanceDataCollector = new SurveillanceDataCollector(cameraDataCollector, pirDataCollector);
 
         Iterator distanceIterator = distanceData.iterator();
 
@@ -58,8 +58,8 @@ public class Main {
 
                 Image image = images.remove(0);
                 var imageDetails = new ImageDetails(image, round);
-                cameraDataCollector.insertData(distance <= 10? imageDetails : null);
-                pirDataCollector.insertData(distance <= 10);
+                surveillanceDataCollector.getCameraDataCollector().insertData(distance <= 10? imageDetails : null);
+                surveillanceDataCollector.getPirDataCollector().insertData(distance <= 10);
             }
             out.println("----------------------------------------");
             round++;
