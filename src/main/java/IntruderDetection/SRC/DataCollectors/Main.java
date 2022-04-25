@@ -53,7 +53,7 @@ public class Main {
             out.println(String.format("-----------Round %d----------------------", round));
             if (distanceIterator.hasNext()) {
                 Float distance = Float.valueOf((String) distanceIterator.next());
-                distanceDataCollector.insertData(distance <= 7? distance: null);
+                distanceDataCollector.insertData(distance <= 7? distance : null);
 
                 Image image = images.remove(0);
                 cameraDataCollector.insertData(distance <= 10? image : null, round);

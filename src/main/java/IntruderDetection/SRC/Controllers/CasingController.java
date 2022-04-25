@@ -57,7 +57,6 @@ public class CasingController implements CasingSensorObserver {
     }
 
     public void handleCasingDoneAcknowledgement(boolean sensorIn) {
-        if (sensorIn) {
             out.println(debugTag + " received casing sensor ack " + sensorIn);
             if (ignoreSensorInput == 0) {
 
@@ -74,7 +73,7 @@ public class CasingController implements CasingSensorObserver {
                 out.println(debugTag + " ignoring casing sensor ack " + sensorIn);
                 ignoreSensorInput--;
             }
-        }
+
         return;
     }
 
