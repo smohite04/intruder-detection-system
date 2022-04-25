@@ -5,6 +5,7 @@ import IntruderDetection.SRC.Controllers.*;
 import IntruderDetection.Sensors.CasingSensor;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,14 +20,14 @@ import static java.lang.System.out;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
         deleteFolder(new File("imageNotifications"));
-        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues2.txt");
+        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues1.txt");
         List<BufferedImage> images = getImagesFromFile();
 
 
-        String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF002.wav";
+        String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF001.wav";
 
         AlarmNotification alarmNotification = new AlarmNotification(audioPath);
         AlarmController alarmController = new AlarmController(alarmNotification);
@@ -53,7 +54,7 @@ public class Main {
             out.println(String.format("-----------Round %d----------------------", round));
             if (distanceIterator.hasNext()) {
                 Float distance = Float.valueOf((String) distanceIterator.next());
-                distanceDataCollector.insertData(distance <= 7? distance: null);
+                distanceDataCollector.insertData(distance <= 7? distance : null);
 
                 Image image = images.remove(0);
                 cameraDataCollector.insertData(distance <= 10? image : null, round);
@@ -61,6 +62,7 @@ public class Main {
             }
             out.println("----------------------------------------");
             round++;
+
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -96,12 +98,7 @@ public class Main {
 
                 try {
                     img = ImageIO.read(f);
-
-                    // you probably want something more involved here
-                    // to display in your UI
-                    System.out.println("image: " + f.getName());
                     bufferedImages.add(img);
-
                 } catch (final IOException e) {
                     // handle errors here
                 }
