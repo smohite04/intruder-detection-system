@@ -20,7 +20,7 @@ public class AlarmNotification extends Notification {
 	AudioInputStream audioInputStream;
 	String filepath;
 
-	public AlarmNotification(String filepath) {
+	private AlarmNotification(String filepath) {
 		this.filepath = filepath;
 		this.statusClip = "paused";
 
@@ -40,7 +40,14 @@ public class AlarmNotification extends Notification {
 			e3.printStackTrace();
 		}
 	}
-
+	private static AlarmNotification instance = null;
+	public static AlarmNotification getOrCreateInstance(String filepath){
+		if(instance == null){
+			var alarmNotification = new AlarmNotification(filepath);
+			instance = alarmNotification;
+		}
+		return instance;
+	}
 	public void startAlarmProcess(boolean alarm) {
 		this.alarm = alarm;
 		if (alarm) {
@@ -76,4 +83,7 @@ public class AlarmNotification extends Notification {
 		return false;
 	}
 
+	public void setAlarm(boolean alarm) {
+		this.alarm = alarm;
+	}
 }

@@ -29,7 +29,7 @@ public class Main {
 
         String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF001.wav";
 
-        AlarmNotification alarmNotification = new AlarmNotification((audioPath);
+        AlarmNotification alarmNotification = AlarmNotification.getOrCreateInstance(audioPath);
         AlarmController alarmController = new AlarmController(alarmNotification);
 
         CasingSensor casingSensor = new CasingSensor();

@@ -14,7 +14,7 @@ public class AlarmController {
 	}
 
 	public boolean raiseAlarm(boolean alarm) {
-		//alarmNotification.setAlarm(alarm);
+		alarmNotification.setAlarm(alarm);
 		alarmNotificationHandler.notify(alarmNotification);
 		return alarm;
 	}
