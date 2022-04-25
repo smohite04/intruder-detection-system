@@ -45,6 +45,8 @@ public class DistanceController implements CasingSensorObserver {
                 out.println(debugTag + ": turning off alarm and opening casing as distance > alarm threshold");
                 alarmController.notify(false);
                 casingController.handleCasingOfObject(false);
+            } else {
+                alarmController.notify(false);
             }
         } else {
             alarmController.notify(false);

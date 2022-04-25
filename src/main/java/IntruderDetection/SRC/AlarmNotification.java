@@ -31,7 +31,7 @@ public class AlarmNotification {
 			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
 
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			//clip.loop(Clip.LOOP_CONTINUOUSLY);
 			if (alarm == true) {
 				play();
 			} else {
@@ -51,12 +51,14 @@ public class AlarmNotification {
 	}
 
 	public void play() {
-		if(statusClip.equals("play")){
+
+		if ( statusClip!=null && statusClip.equals("play")) {
 			System.out.println("The alarm is already on");
+		} else {
+			clip.start();
+			statusClip = "play";
+			System.out.println("The Alarm is triggered");
 		}
-		clip.start();
-		statusClip = "play";
-		System.out.println("The Alarm is triggered");
 	}
 
 	public void pause() {
