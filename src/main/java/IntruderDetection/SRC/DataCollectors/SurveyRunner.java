@@ -13,9 +13,6 @@ public class SurveyRunner extends Thread{
         this.value = value;
         this.imageDetails = imageDetails;
         this.surveillanceDataCollector = surveillanceDataCollector;
-
-
-        //PD = pd;
     }
 
     public void run() {

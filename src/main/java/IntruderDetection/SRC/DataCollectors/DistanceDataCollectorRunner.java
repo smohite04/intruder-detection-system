@@ -10,8 +10,6 @@ public class DistanceDataCollectorRunner extends Thread{
     DistanceDataCollectorRunner( Float value, DistanceDataCollector distanceDataCollector) {
         this.value = value;
         this.distanceDataCollector = distanceDataCollector;
-
-        //PD = pd;
     }
 
     public void run() {
@@ -23,7 +21,7 @@ public class DistanceDataCollectorRunner extends Thread{
 
     public void start () {
         System.out.println("Starting " +  value );
-        if (t == null) {
+        if (t == null ) {
             t = new Thread (this, value.toString());
             t.start ();
         }
