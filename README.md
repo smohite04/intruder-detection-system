@@ -21,3 +21,13 @@ With the help of formal modelling methods, you can observe the high level overvi
 
 ### Extended state machine to understand how casing works
 ![esm-casing](/esm-casing-controller.png)
+
+### How to run:
+1. you must have open jdk version 16 or all the versions compatible with it should work too.
+2. You may need to create the imageNotifications directory at the root level if it doesn't exist already.
+3. We have added three input files in the solution repo. (named DistanceValues1.txt, DistanceValues2.txt, DistanceValues3.txt).
+4. You will see the Main.java (entry class) in the package DataCollectors as path "/src/main/java/IntruderDetection/SRC/DataCollectors/Main.java". At line number 26 it reads the distance file. Update the Distance file names if required to run multiple scenarios. 
+5. Build and configure the application to mark the starting point as class Main.java. Simply run the solution and you should be able to see the results on console.
+6. The images can be seen in the directory imageNotifications.
+
+### Good Luck!!!
