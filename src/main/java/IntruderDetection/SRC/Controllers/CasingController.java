@@ -34,22 +34,20 @@ public class CasingController implements CasingSensorObserver {
     }
 
     public void handleCasingOfObject(boolean toEnclose) {
-        out.println(debugTag + ": received input toEnclose " + toEnclose);
-
         if (toEnclose && casingMode != CasingMode.enclosing && casingMode != CasingMode.enclosed) {
             if (casingMode == CasingMode.opening) {
                 ignoreSensorInput++;
             }
+            out.println("Casing Enclosing");
             casingMode = CasingMode.enclosing;
-            out.println(debugTag + " instructing casing sensor to close");
             casingSensor.instruct(true);
         }
         if (!toEnclose && casingMode != CasingMode.open && casingMode != CasingMode.opening) {
             if (casingMode == CasingMode.enclosing) {
                 ignoreSensorInput++;
             }
+            out.println("Casing Opening");
             casingMode = CasingMode.opening;
-            out.println(debugTag + " instructing casing sensor to open");
             casingSensor.instruct(false);
         }
         // handleCasingDoneAcknowledgement(false);
@@ -57,20 +55,15 @@ public class CasingController implements CasingSensorObserver {
     }
 
     public void handleCasingDoneAcknowledgement(boolean sensorIn) {
-            out.println(debugTag + " received casing sensor ack " + sensorIn);
             if (ignoreSensorInput == 0) {
-
                 if (casingMode == CasingMode.opening) {
                     casingMode = CasingMode.open;
-                    out.println(debugTag + " notifying distance controller enclosed = " + sensorIn);
                     notifyObservers(false);
                 } else if (casingMode == CasingMode.enclosing) {
-                    out.println(debugTag + " notifying distance controller enclosed = " + sensorIn);
                     casingMode = CasingMode.enclosed;
                     notifyObservers(true);
                 }
             } else {
-                out.println(debugTag + " ignoring casing sensor ack " + sensorIn);
                 ignoreSensorInput--;
             }
 

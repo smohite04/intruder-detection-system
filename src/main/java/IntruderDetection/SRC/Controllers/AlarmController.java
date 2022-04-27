@@ -21,7 +21,6 @@ public class AlarmController {
 
 
 	public boolean notify(boolean raiseNotification) {
-		System.out.println("The value of raiseNotification is : " +raiseNotification);
 		alarmNotification.startAlarmProcess(raiseNotification);
 		return raiseNotification;
 	}

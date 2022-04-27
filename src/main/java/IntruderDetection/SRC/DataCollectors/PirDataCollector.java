@@ -15,13 +15,11 @@ public class PirDataCollector extends DataCollector<Boolean> {
 	}
 
 	public boolean insertData(Boolean data) {
-		out.println(debugTAG + " received input " + data.toString());
 		notifyMotionDetector(data);
 		return true;
 	}
 
 	private void notifyMotionDetector(Boolean raiseAlert) {
-		out.println(debugTAG + " notifying motion detector " + raiseAlert.toString());
 		motionDetector.computeAction(raiseAlert);
 	}
 

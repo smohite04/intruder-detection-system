@@ -13,17 +13,14 @@ public class AlertNotificationHandler implements INotificationHandler {
     public void notify(Notification notification) {
         AlertNotification alertNotification = (AlertNotification) notification;
         if(alertNotification.isAlertRaised()) {
-            System.out.println("The user has been alerted about the intruder");
-            System.out.println("The image of intruder is captured and sent to the intruder");
+            System.out.println("Intruder Detected");
+            System.out.println("Image Notification Sent");
             File outputFile = new File("imageNotifications/" + alertNotification.getCameraStream().getRound() + ".jpg");
             try {
                 ImageIO.write((BufferedImage) alertNotification.getCameraStream().getImage(), "jpg", outputFile);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        } else {
-            System.out.println("The intruder is not in the sur.veil·lance");
-            System.out.println("The user is not notified about any alert");
         }
     }
 }
