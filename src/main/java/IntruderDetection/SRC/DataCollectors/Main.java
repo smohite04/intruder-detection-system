@@ -57,12 +57,25 @@ public class Main {
                         (distance <= 7 ? distance : "Absent") +
                         " | " + (distance <= 10)
                 );
-                distanceDataCollector.insertData(distance <= 7? distance : null);
+                //distanceDataCollector.insertData(distance <= 7? distance : null);
 
+                var thread = new DistanceDataCollectorRunner(distance, distanceDataCollector);
+               // distanceDataCollector.insertData(distance <= 7? distance : null);
+               thread.start();
                 Image image = images.remove(0);
                 var imageDetails = new ImageDetails(image, round);
-                surveillanceDataCollector.getCameraDataCollector().insertData(distance <= 10? imageDetails : null);
-                surveillanceDataCollector.getPirDataCollector().insertData(distance <= 10);
+                var thread1 = new SurveyRunner(distance, imageDetails, surveillanceDataCollector);
+                // distanceDataCollector.insertData(distance <= 7? distance : null);
+                thread1.start();
+               // surveillanceDataCollector.getCameraDataCollector().insertData(distance <= 10? imageDetails : null);
+                //surveillanceDataCollector.getPirDataCollector().insertData(distance <= 10);
+                // wait for threads to end
+                try {
+                    thread.join();
+                    thread1.join();
+                } catch ( Exception e) {
+                    System.out.println("Interrupted");
+                }
             }
             out.println("----------------------------------------");
             round++;
