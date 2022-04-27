@@ -17,7 +17,6 @@ public class CameraDataCollector extends DataCollector<ImageDetails>{
     }
 
     public boolean insertData(ImageDetails imageDetails) {
-		out.println(debugTAG + " received image input");
         if (imageDetails != null && imageDetails.getImage() != null) {
             provideDataToUserController(imageDetails);
         }

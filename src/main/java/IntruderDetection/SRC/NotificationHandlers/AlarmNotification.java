@@ -25,7 +25,6 @@ public class AlarmNotification extends Notification {
 		this.statusClip = "paused";
 
 		try {
-			System.out.println("Deciding whether alarm should be triggered or not");
 			audioInputStream = AudioSystem.getAudioInputStream(new File(this.filepath));
 			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);
@@ -59,22 +58,22 @@ public class AlarmNotification extends Notification {
 
 	public void play() {
 		if ( statusClip!=null && statusClip.equals("play")) {
-			System.out.println("The alarm is already on");
+			System.out.println("Alarm:\ton");
 		} else {
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 			clip.start();
 			statusClip = "play";
-			System.out.println("The Alarm is triggered");
+			System.out.println("Alarm Turning On");
 		}
 	}
 
 	public void pause() {
 		if(statusClip.equals("paused")) {
-			System.out.println("The alarm is already paused");
+			System.out.println("Alarm:\toff");
 		} else {
 			clip.stop();
 			statusClip="paused";
-			System.out.println("The alarm is turned off as intruder is moving away from proximity area");
+			System.out.println("Alarm Turning Off");
 		}
 
 	}

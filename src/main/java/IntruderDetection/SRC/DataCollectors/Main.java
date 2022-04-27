@@ -23,9 +23,8 @@ public class Main {
     public static void main(String[] args) throws Exception{
 
         deleteFolder(new File("imageNotifications"));
-        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues2.txt");
+        LinkedList<String> distanceData = FileReader.readFile("src/main/java/IntruderDetection/SRC/DataCollectors/DistanceValues1.txt");
         List<BufferedImage> images = getImagesFromFile();
-
 
         String audioPath = "src/main/java/IntruderDetection/SRC/DataCollectors/TF001.wav";
 
@@ -54,6 +53,10 @@ public class Main {
             out.println(String.format("-----------Round %d----------------------", round));
             if (distanceIterator.hasNext()) {
                 Float distance = Float.valueOf((String) distanceIterator.next());
+                out.println("Inputs: " +
+                        (distance <= 7 ? distance : "Absent") +
+                        " | " + (distance <= 10)
+                );
                 distanceDataCollector.insertData(distance <= 7? distance : null);
 
                 Image image = images.remove(0);

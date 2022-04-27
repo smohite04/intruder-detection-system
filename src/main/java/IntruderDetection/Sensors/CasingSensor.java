@@ -20,16 +20,13 @@ public class CasingSensor {
     }
 
     public synchronized void instruct(boolean instruction) {
-        out.println(debugTag + " Received instruction to " + (instruction ? "close " : "open ") + " casing");
         Thread thread = new Thread("casingsensor") {
             public void run() {
                 try {
-                    out.println(debugTag + " casing starting to " + (instruction ? "close " : "open "));
                     TimeUnit.SECONDS.sleep(2);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                out.println(debugTag + " casing instruction to  " + (instruction ? "close " : "open ") + " complete");
                 notifyObservers(instruction);
             }
         };
